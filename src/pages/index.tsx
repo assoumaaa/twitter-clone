@@ -86,7 +86,7 @@ export default function Home() {
           <div>
             {isSignedIn ? <CreatePostWizard /> : <SignInButton />}
             {data?.map((fullPost) => (
-              <PostView {...fullPost} />
+              <PostView {...fullPost} key={fullPost.post.id} />
             ))}
           </div>
         </div>

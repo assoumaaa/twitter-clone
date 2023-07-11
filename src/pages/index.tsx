@@ -7,11 +7,22 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
 import { LoadingPage } from " /components/loading";
+import { useContext, useState } from "react";
 
 dayjs.extend(relativeTime);
 
 const CreatePostWizard = () => {
+  const [input, SetInput] = useState("");
   const user = useUser();
+  const ctx = api.useContext();
+
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
+    onSuccess: () => {
+      SetInput("");
+      ctx.posts.getAll.invalidate();
+    },
+  });
+
   if (!user.user) return null;
 
   return (
@@ -26,7 +37,12 @@ const CreatePostWizard = () => {
       <input
         className="w-full p-1 outline-none"
         placeholder="What's on your mind?"
+        type="text"
+        value={input}
+        onChange={(e) => SetInput(e.target.value)}
+        disabled={isPosting}
       />
+      <button onClick={() => mutate({ content: input })}>Post</button>
     </div>
   );
 };

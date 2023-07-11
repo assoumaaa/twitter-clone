@@ -103,7 +103,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex h-screen w-screen justify-center">
+      <main className="flex h-screen w-full justify-center">
         <div className=" w-full max-w-2xl content-center border-x border-gray-300">
           <p className="p-4 text-2xl font-bold">Home</p>
           <div className="flex w-full  border-b border-gray-300 text-xl">

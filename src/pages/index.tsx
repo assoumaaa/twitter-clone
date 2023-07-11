@@ -6,6 +6,7 @@ import { ClerkProvider, useUser, SignIn, SignedOut } from "@clerk/nextjs";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
+import { LoadingPage } from " /components/loading";
 
 dayjs.extend(relativeTime);
 
@@ -59,10 +60,25 @@ const PostView = (props: PostWithUser) => {
   );
 };
 
-export default function Home() {
-  const { isLoaded, isSignedIn, user } = useUser();
-  const { data } = api.posts.getAll.useQuery();
+const Feed = () => {
+  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
+  if (postsLoading) return <LoadingPage />;
+  if (!data) return null;
 
+  return (
+    <div>
+      {data?.map((fullPost) => (
+        <PostView {...fullPost} key={fullPost.post.id} />
+      ))}
+    </div>
+  );
+};
+
+export default function Home() {
+  const { isLoaded: userLoaded, isSignedIn } = useUser();
+  api.posts.getAll.useQuery();
+
+  if (!userLoaded) return <div />;
   return (
     <>
       <Head>
@@ -72,7 +88,7 @@ export default function Home() {
       </Head>
 
       <main className="flex h-screen w-screen justify-center">
-        <div className="h-full w-full max-w-2xl content-center border-x border-gray-300">
+        <div className=" w-full max-w-2xl content-center border-x border-gray-300">
           <p className="p-4 text-2xl font-bold">Home</p>
           <div className="flex w-full  border-b border-gray-300 text-xl">
             <button className="w-full justify-center p-4 font-bold decoration-blue-600  hover:bg-slate-200 focus:underline">
@@ -82,13 +98,8 @@ export default function Home() {
               Following
             </button>
           </div>
-
-          <div>
-            {isSignedIn ? <CreatePostWizard /> : <SignInButton />}
-            {data?.map((fullPost) => (
-              <PostView {...fullPost} key={fullPost.post.id} />
-            ))}
-          </div>
+          {isSignedIn ? <CreatePostWizard /> : <SignInButton />}
+          <Feed />
         </div>
       </main>
     </>

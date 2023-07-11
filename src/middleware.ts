@@ -13,7 +13,7 @@ export default authMiddleware({
     return intlMiddleware(req);
   },
 
-  publicRoutes: ["/", "/:locale/sign-in"],
+  publicRoutes: ["/", "/:locale/sign-in", "https://ggtwitter.vercel.app/"],
 });
 
 export const config = {

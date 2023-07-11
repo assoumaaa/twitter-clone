@@ -79,7 +79,7 @@ const PostView = (props: PostWithUser) => {
 const Feed = () => {
   const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
   if (postsLoading) return <LoadingPage />;
-  if (!data) return null;
+  if (!data) return <div>Something went wrong</div>;
 
   return (
     <div>
@@ -95,6 +95,7 @@ export default function Home() {
   api.posts.getAll.useQuery();
 
   if (!userLoaded) return <div />;
+
   return (
     <>
       <Head>

@@ -115,6 +115,7 @@ export default function Home() {
             </button>
           </div>
           {isSignedIn ? <CreatePostWizard /> : <SignInButton />}
+          <SignOutButton />
           <Feed />
         </div>
       </main>

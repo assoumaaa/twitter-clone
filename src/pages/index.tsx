@@ -81,6 +81,8 @@ const Feed = () => {
   if (postsLoading) return <LoadingPage />;
   if (!data) return <div>Something went wrong</div>;
 
+  console.log(data);
+
   return (
     <div>
       {data?.map((fullPost) => (

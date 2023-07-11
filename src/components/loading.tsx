@@ -26,7 +26,7 @@ const LoadingSpinner = () => {
 
 export const LoadingPage = () => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center">
+    <div className="flex h-1/3 items-center justify-center">
       <div className="text-center">
         <LoadingSpinner />
       </div>

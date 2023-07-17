@@ -2,12 +2,13 @@ import Head from "next/head";
 import Link from "next/link";
 import { RouterOutputs, api } from " /utils/api";
 import { SignInButton, SignOutButton } from "@clerk/nextjs";
-import { ClerkProvider, useUser, SignIn, SignedOut } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
 import { LoadingPage } from " /components/loading";
 import { useContext, useState } from "react";
+import SideBar from " /components/sidebar";
 
 dayjs.extend(relativeTime);
 
@@ -106,8 +107,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex h-screen w-full justify-center">
-        <div className=" w-full max-w-2xl content-center border-x border-gray-300">
+      <main className="flex min-h-screen w-full justify-center">
+        <div className="sticky left-0 top-0 h-screen p-2">
+          <SideBar />
+        </div>
+        <div className="w-full max-w-3xl content-center border-x border-gray-300">
           <p className="p-4 text-2xl font-bold">Home</p>
           <div className="flex w-full  border-b border-gray-300 text-xl">
             <button className="w-full justify-center p-4 font-bold decoration-blue-600  hover:bg-slate-200 focus:underline">

@@ -10,6 +10,7 @@ import { LoadingPage } from " /components/loading";
 import { useContext, useState } from "react";
 import SideBar from " /components/sidebar";
 import { toast } from "react-hot-toast";
+import { PageLayout } from " /components/layout";
 
 dayjs.extend(relativeTime);
 
@@ -76,7 +77,7 @@ const PostView = (props: PostWithUser) => {
         key={post.id}
         className="border-gray-30 flex w-full items-center gap-3 border-b p-4"
       >
-        <Link href={`/@${author.id}`}>
+        <Link href={`/${author.id}`}>
           <Image
             className="rounded-full"
             src={author.profilePicture}
@@ -88,7 +89,7 @@ const PostView = (props: PostWithUser) => {
 
         <div className="flex  flex-col ">
           <div className="flex w-full flex-row">
-            <Link href={`/@${author.id}`}>
+            <Link href={`/${author.id}`}>
               <span>@{author?.username}</span>
             </Link>
             <span className="text-slate-500">
@@ -132,25 +133,20 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex min-h-screen w-full justify-center">
-        <div className="sticky left-0 top-0 h-screen p-2">
-          <SideBar />
+      <PageLayout>
+        <p className="p-4 text-2xl font-bold">Home</p>
+        <div className="flex w-full  border-b border-gray-300 text-xl">
+          <button className="w-full justify-center p-4 font-bold decoration-blue-600  hover:bg-slate-200 focus:underline">
+            All
+          </button>
+          <button className="w-full justify-center p-4 font-bold decoration-blue-600  hover:bg-slate-200 focus:underline">
+            Following
+          </button>
         </div>
-        <div className="w-full max-w-3xl content-center border-x border-gray-300">
-          <p className="p-4 text-2xl font-bold">Home</p>
-          <div className="flex w-full  border-b border-gray-300 text-xl">
-            <button className="w-full justify-center p-4 font-bold decoration-blue-600  hover:bg-slate-200 focus:underline">
-              All
-            </button>
-            <button className="w-full justify-center p-4 font-bold decoration-blue-600  hover:bg-slate-200 focus:underline">
-              Following
-            </button>
-          </div>
-          {isSignedIn ? <CreatePostWizard /> : <SignInButton />}
-          <SignOutButton />
-          <Feed />
-        </div>
-      </main>
+        {isSignedIn ? <CreatePostWizard /> : <SignInButton />}
+        <SignOutButton />
+        <Feed />
+      </PageLayout>
     </>
   );
 }

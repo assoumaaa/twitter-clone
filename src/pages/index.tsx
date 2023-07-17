@@ -9,6 +9,7 @@ import Image from "next/image";
 import { LoadingPage } from " /components/loading";
 import { useContext, useState } from "react";
 import SideBar from " /components/sidebar";
+import { toast } from "react-hot-toast";
 
 dayjs.extend(relativeTime);
 
@@ -21,6 +22,9 @@ const CreatePostWizard = () => {
     onSuccess: () => {
       SetInput("");
       void ctx.posts.getAll.invalidate();
+    },
+    onError: (err) => {
+      if (err.data?.code === "TOO_MANY_REQUESTS") toast.error(err.message);
     },
   });
 

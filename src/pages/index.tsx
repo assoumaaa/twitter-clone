@@ -24,7 +24,10 @@ const CreatePostWizard = () => {
       void ctx.posts.getAll.invalidate();
     },
     onError: (err) => {
-      if (err.data?.code === "TOO_MANY_REQUESTS") toast.error(err.message);
+      const errorMessage = err.data?.zodError?.formErrors[0];
+
+      if (errorMessage && errorMessage[0]) toast.error(errorMessage);
+      else toast.error(err.message);
     },
   });
 
@@ -47,7 +50,18 @@ const CreatePostWizard = () => {
         onChange={(e) => SetInput(e.target.value)}
         disabled={isPosting}
       />
-      <button onClick={() => mutate({ content: input })}>Post</button>
+
+      {!isPosting && (
+        <button onClick={() => mutate({ content: input })} disabled={isPosting}>
+          Post
+        </button>
+      )}
+
+      {isPosting && input !== "" && (
+        <div className="flex items-center justify-center ">
+          <LoadingPage />
+        </div>
+      )}
     </div>
   );
 };
@@ -57,27 +71,34 @@ const PostView = (props: PostWithUser) => {
   const { post, author } = props;
 
   return (
-    <div
-      key={post.id}
-      className="flex w-full items-center gap-3 border-b border-gray-300 p-4"
-    >
-      <Image
-        className="rounded-full"
-        src={author.profilePicture}
-        alt="pp"
-        width={56}
-        height={56}
-      />
-      <div className="flex flex-col">
-        <div className="flex flex-row ">
-          <span>@{author?.username}</span>
-          <span className="text-slate-500">
-            . {dayjs(post.createdAt).fromNow()}
-          </span>
+    <Link href={`/post/${post.id}`}>
+      <div
+        key={post.id}
+        className="border-gray-30 flex w-full items-center gap-3 border-b p-4"
+      >
+        <Link href={`/@${author.id}`}>
+          <Image
+            className="rounded-full"
+            src={author.profilePicture}
+            alt="pp"
+            width={56}
+            height={56}
+          />
+        </Link>
+
+        <div className="flex  flex-col ">
+          <div className="flex w-full flex-row">
+            <Link href={`/@${author.id}`}>
+              <span>@{author?.username}</span>
+            </Link>
+            <span className="text-slate-500">
+              . {dayjs(post.createdAt).fromNow()}
+            </span>
+          </div>
+          <span>{post.content}</span>
         </div>
-        <span>{post.content}</span>
       </div>
-    </div>
+    </Link>
   );
 };
 

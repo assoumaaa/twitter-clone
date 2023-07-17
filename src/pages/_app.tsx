@@ -3,11 +3,20 @@ import { api } from " /utils/api";
 import " /styles/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "react-hot-toast";
+import Head from "next/head";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <ClerkProvider>
-      <Toaster position="top-center" reverseOrder={true} />
+      <Head>
+        <title>GGtwitter</title>
+        <meta
+          name="description"
+          content="Express your feelings without being judged!"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Toaster position="bottom-center" reverseOrder={true} />
       <Component {...pageProps} />{" "}
     </ClerkProvider>
   );

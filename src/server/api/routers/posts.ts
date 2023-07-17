@@ -59,9 +59,13 @@ export const postsRouter = createTRPCRouter({
 
   create: privateProcedure
     .input(
-      z.object({
-        content: z.string().min(1).max(280),
-      }),
+      z
+        .object({
+          content: z.string().min(1).max(280),
+        })
+        .refine((data) => data.content.trim().length > 0, {
+          message: "You can't post an empty space!",
+        })
     )
     .mutation(async ({ ctx, input }) => {
       const authorId = ctx.userId;

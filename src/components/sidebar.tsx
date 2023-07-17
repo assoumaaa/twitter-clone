@@ -1,7 +1,7 @@
 import React from "react";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
-import { AiOutlineUserAdd } from "react-icons/ai";
+import { PiUserCirclePlusLight } from "react-icons/pi";
 
 export default function SideBar() {
   const user = useUser();
@@ -25,7 +25,7 @@ export default function SideBar() {
             </div>
           ) : (
             <div>
-              <AiOutlineUserAdd className="h-10 w-10" />
+              <PiUserCirclePlusLight className="h-12 w-12" />
             </div>
           )}
         </div>

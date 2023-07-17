@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useUser } from "@clerk/nextjs";
 
 export default function SinglePostPage() {
-  const { isLoaded: userLoaded, isSignedIn } = useUser();
+  const { isLoaded: userLoaded } = useUser();
 
   if (!userLoaded) return <div />;
 

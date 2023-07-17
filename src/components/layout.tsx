@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import SideBar from "./sidebar";
 
 export const PageLayout = (props: PropsWithChildren) => {

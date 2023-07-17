@@ -29,7 +29,9 @@ export default function ProfilePage({ userId }: { userId: string }) {
           />
         </div>
         <div className="h-[64px]"></div>
-        <div className="p-4 text-2xl font-bold">{`@${data.username}`}</div>
+        <div className="p-4 text-2xl font-bold">{`@ ${
+          data.username ?? ""
+        } `}</div>
         <div className="w-full border-b border-gray-300"></div>
       </PageLayout>
     </>

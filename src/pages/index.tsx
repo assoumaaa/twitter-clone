@@ -29,7 +29,7 @@ const CreatePostWizard = () => {
   if (!user.user) return null;
 
   return (
-    <div className="flex gap-3 p-4">
+    <div className="flex items-center  gap-3 p-4">
       <Image
         className="rounded-full"
         src={user.user?.imageUrl}
@@ -48,7 +48,11 @@ const CreatePostWizard = () => {
       />
 
       {!isPosting && (
-        <button onClick={() => mutate({ content: input })} disabled={isPosting}>
+        <button
+          className="rounded-md border border-blue-400 p-2 font-bold text-blue-400 transition-all hover:bg-primary hover:text-white"
+          onClick={() => mutate({ content: input })}
+          disabled={isPosting}
+        >
           Post
         </button>
       )}
@@ -96,6 +100,8 @@ export default function Home() {
         <p className="p-4 text-2xl font-bold">Home</p>
 
         <CreatePostWizard />
+        <div className="w-full border-b border-gray-300"></div>
+
         <Feed />
       </PageLayout>
     </>

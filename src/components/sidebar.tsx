@@ -10,7 +10,7 @@ export default function SideBar() {
 
   return (
     user.isLoaded && (
-      <div className="flex h-full flex-col items-center justify-between">
+      <div className="flex h-svh flex-col items-center justify-between p-2">
         <div> Logo</div>
         <div>
           {user.isSignedIn ? (

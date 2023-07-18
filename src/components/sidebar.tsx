@@ -1,5 +1,5 @@
 import React from "react";
-import { useUser } from "@clerk/nextjs";
+import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { PiUserCirclePlusLight } from "react-icons/pi";
 
@@ -14,9 +14,16 @@ export default function SideBar() {
         <div> Logo</div>
         <div>
           {user.isSignedIn ? (
-            <div>
+            <div className="group relative flex justify-center">
+              <span className="absolute bottom-11 left-0 flex w-32 scale-0 items-center justify-center rounded-xl bg-gray-200 p-4 text-sm text-black transition-all duration-300 group-hover:scale-100">
+                <SignOutButton>
+                  <p className="cursor-pointer">
+                    Logout @{user.user?.username}
+                  </p>
+                </SignOutButton>
+              </span>
               <Image
-                className="rounded-full"
+                className="z-10 cursor-pointer rounded-full"
                 src={user.user?.imageUrl}
                 alt="pp"
                 width={56}
@@ -24,8 +31,10 @@ export default function SideBar() {
               />
             </div>
           ) : (
-            <div>
-              <PiUserCirclePlusLight className="h-12 w-12" />
+            <div className="cursor-pointer">
+              <SignInButton>
+                <PiUserCirclePlusLight className="h-12 w-12" />
+              </SignInButton>
             </div>
           )}
         </div>

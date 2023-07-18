@@ -26,6 +26,7 @@ export default function ProfilePage({ userId }: { userId: string }) {
             alt="pp"
             width={128}
             height={128}
+            priority={true}
           />
         </div>
         <div className="h-[64px]"></div>

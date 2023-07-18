@@ -1,14 +1,13 @@
 import Head from "next/head";
 import Link from "next/link";
 import { RouterOutputs, api } from " /utils/api";
-import { SignInButton, SignOutButton } from "@clerk/nextjs";
+import { SignInButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
 import { LoadingPage } from " /components/loading";
-import { useContext, useState } from "react";
-import SideBar from " /components/sidebar";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { PageLayout } from " /components/layout";
 
@@ -42,6 +41,7 @@ const CreatePostWizard = () => {
         alt="pp"
         width={56}
         height={56}
+        priority={true}
       />
       <input
         className="w-full p-1 outline-none"
@@ -143,8 +143,7 @@ export default function Home() {
             Following
           </button>
         </div>
-        {isSignedIn ? <CreatePostWizard /> : <SignInButton />}
-        <SignOutButton />
+        <CreatePostWizard />
         <Feed />
       </PageLayout>
     </>

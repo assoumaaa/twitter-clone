@@ -1,17 +1,12 @@
 import Head from "next/head";
-import Link from "next/link";
-import { RouterOutputs, api } from " /utils/api";
-import { SignInButton } from "@clerk/nextjs";
+import { api } from " /utils/api";
 import { useUser } from "@clerk/nextjs";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import Image from "next/image";
 import { LoadingPage } from " /components/loading";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { PageLayout } from " /components/layout";
-
-dayjs.extend(relativeTime);
+import { PostView } from " /components/postView";
 
 const CreatePostWizard = () => {
   const [input, SetInput] = useState("");
@@ -67,42 +62,6 @@ const CreatePostWizard = () => {
   );
 };
 
-type PostWithUser = RouterOutputs["posts"]["getAll"][number];
-const PostView = (props: PostWithUser) => {
-  const { post, author } = props;
-
-  return (
-    <Link href={`/post/${post.id}`}>
-      <div
-        key={post.id}
-        className="border-gray-30 flex w-full items-center gap-3 border-b p-4"
-      >
-        <Link href={`/${author.id}`}>
-          <Image
-            className="rounded-full"
-            src={author.profilePicture}
-            alt="pp"
-            width={56}
-            height={56}
-          />
-        </Link>
-
-        <div className="flex  flex-col ">
-          <div className="flex w-full flex-row">
-            <Link href={`/${author.id}`}>
-              <span>@{author?.username}</span>
-            </Link>
-            <span className="text-slate-500">
-              . {dayjs(post.createdAt).fromNow()}
-            </span>
-          </div>
-          <span>{post.content}</span>
-        </div>
-      </div>
-    </Link>
-  );
-};
-
 const Feed = () => {
   const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
 
@@ -135,14 +94,7 @@ export default function Home() {
 
       <PageLayout>
         <p className="p-4 text-2xl font-bold">Home</p>
-        <div className="flex w-full  border-b border-gray-300 text-xl">
-          <button className="w-full justify-center p-4 font-bold decoration-blue-600  hover:bg-slate-200 focus:underline">
-            All
-          </button>
-          <button className="w-full justify-center p-4 font-bold decoration-blue-600  hover:bg-slate-200 focus:underline">
-            Following
-          </button>
-        </div>
+
         <CreatePostWizard />
         <Feed />
       </PageLayout>

@@ -4,6 +4,27 @@ import { GetStaticProps } from "next";
 import { generateSSGHelper } from " /server/helpers/ssgHelper";
 import { PageLayout } from " /components/layout";
 import Image from "next/image";
+import { PostView } from " /components/postView";
+import { LoadingPage } from " /components/loading";
+
+const ProfileFeed = (props: { userId: string }) => {
+  const { data, isLoading: profilePostsLoading } =
+    api.posts.getPostByUserId.useQuery({
+      userId: props.userId,
+    });
+
+  if (profilePostsLoading) return <LoadingPage />;
+
+  if (!data) return <div>User has no posts</div>;
+
+  return (
+    <div>
+      {data.map((fullPost) => (
+        <PostView {...fullPost} key={fullPost.post.id} />
+      ))}
+    </div>
+  );
+};
 
 export default function ProfilePage({ userId }: { userId: string }) {
   const { data } = api.profile.getUserById.useQuery({
@@ -19,7 +40,7 @@ export default function ProfilePage({ userId }: { userId: string }) {
       </Head>
 
       <PageLayout>
-        <div className=" relative flex h-1/4 flex-col bg-slate-400">
+        <div className="relative h-36 bg-slate-400">
           <Image
             className="absolute bottom-0 left-0 -mb-16 ml-4 rounded-full border-4 border-black"
             src={data.profilePicture}
@@ -30,10 +51,13 @@ export default function ProfilePage({ userId }: { userId: string }) {
           />
         </div>
         <div className="h-[64px]"></div>
-        <div className="p-4 text-2xl font-bold">{`@ ${
-          data.username ?? ""
-        } `}</div>
+
+        <div className="p-4 text-2xl font-bold">
+          {`@ ${data.username ?? ""} `}
+        </div>
         <div className="w-full border-b border-gray-300"></div>
+
+        <ProfileFeed userId={data.id} />
       </PageLayout>
     </>
   );

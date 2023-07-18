@@ -7,6 +7,9 @@ export default {
       height: {
         svh: "100svh",
       },
+      backgroundColor: {
+        primary: "#6aabe5",
+      },
     },
   },
   plugins: [],

@@ -10,15 +10,25 @@ export default function SideBar() {
 
   return (
     user.isLoaded && (
-      <div className="flex h-svh flex-col items-center justify-between p-2">
-        <div> Logo</div>
+      <div className="flex h-full flex-col items-center justify-between p-2">
+        <Image
+          className="cursor-pointer"
+          src={"/logo.png"}
+          alt="pp"
+          width={92}
+          height={92}
+          priority={true}
+          onClick={() => {
+            window.location.href = "/";
+          }}
+        />
         <div>
           {user.isSignedIn ? (
             <div className="group relative flex justify-center">
-              <span className="absolute bottom-11 left-0 flex w-32 scale-0 items-center justify-center rounded-xl bg-gray-200 p-4 text-sm text-black transition-all duration-300 group-hover:scale-100">
+              <span className="absolute bottom-11 left-0 flex w-32 scale-0 items-center justify-center rounded-xl bg-primary p-4 text-sm text-black transition-all duration-300 group-hover:scale-100">
                 <SignOutButton>
                   <p className="cursor-pointer">
-                    Logout @{user.user?.username}
+                    Logout @{user.user?.firstName}
                   </p>
                 </SignOutButton>
               </span>

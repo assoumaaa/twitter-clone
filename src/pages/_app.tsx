@@ -12,7 +12,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         <title>GGtwitter</title>
         <meta
           name="description"
-          content="Express your feelings without being judged!"
+          content="GGtwitter: Engage, share, and express freely without fear of judgment or bans!"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>

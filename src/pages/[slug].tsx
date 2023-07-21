@@ -36,7 +36,7 @@ export default function ProfilePage({ userId }: { userId: string }) {
   return (
     <>
       <Head>
-        <title>Profile View</title>
+        <title>{data.username}</title>
       </Head>
 
       <PageLayout>

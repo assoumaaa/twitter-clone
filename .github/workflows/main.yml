@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env: # Define environment variables here
-      DATABASE_URL : 'https://fake.com'
+      DATABASE_URL: "https://fake.com"
 
     steps:
       - name: Checkout code
@@ -28,7 +28,7 @@ jobs:
         run: npm install
 
       - name: TypeScript Type Checking
-        run: npm run type-check
+        run: npm run typecheck
 
       - name: Linting with ESLint
         run: npm run lint

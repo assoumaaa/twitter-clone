@@ -83,7 +83,7 @@ const Feed = () => {
 };
 
 export default function Home() {
-  const { isLoaded: userLoaded, isSignedIn } = useUser();
+  const { isLoaded: userLoaded } = useUser();
   api.posts.getAll.useQuery();
 
   if (!userLoaded) return <div />;

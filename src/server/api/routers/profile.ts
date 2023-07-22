@@ -7,7 +7,7 @@ import { filterUserForClient } from " /server/helpers/filterUserForClient";
 export const profileRouter = createTRPCRouter({
   getUserById: publicProcedure
     .input(z.object({ userId: z.string() }))
-    .query(async ({ ctx, input }) => {
+    .query(async ({ input }) => {
       const user = await clerkClient.users.getUser(input.userId);
 
       if (!user) {

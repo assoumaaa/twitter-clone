@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { api } from " /utils/api";
-import { GetStaticProps } from "next";
 import { generateSSGHelper } from " /server/helpers/ssgHelper";
 import { PageLayout } from " /components/layout";
 import Image from "next/image";
 import { PostView } from " /components/postView";
 import { LoadingPage } from " /components/loading";
+import type { GetStaticProps } from "next";
 
 const ProfileFeed = (props: { userId: string }) => {
   const { data, isLoading: profilePostsLoading } =
